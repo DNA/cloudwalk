@@ -15,11 +15,14 @@ class GameCollection
     @list.last
   end
 
-  def to_json(...)
+  def to_h(...)
     @list
       .map
       .with_index { |game, index| ["game-#{index}", game.to_h] }
       .to_h
-      .to_json(...)
+  end
+
+  def to_json(...)
+    to_h.to_json(...)
   end
 end
