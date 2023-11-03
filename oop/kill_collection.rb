@@ -27,7 +27,7 @@ class KillCollection
     system_kills = system_kills.group_by(&:victim).map{ |k, v| [k, v.count] }.to_h
 
     player_kills
-      .group_by(&:victim)
+      .group_by(&:killer)
       .map{ |k, v| [k, v.count] }
       .sort_by(&:last)
       .reverse
