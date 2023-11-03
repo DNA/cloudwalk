@@ -27,5 +27,4 @@ File.readlines('qgames.log').each do |line|
   end
 end
 
-
-pp games
+puts JSON.generate(games)

@@ -30,5 +30,14 @@ class Game
     self.kills.add(killer, victim, mod)
   end
 
+  def to_h
+    {
+      total_kills: self.kills.count,
+      players: self.players.names,
+    }
+  end
+
+  def to_json(...)
+    self.to_h.to_json(...)
   end
 end

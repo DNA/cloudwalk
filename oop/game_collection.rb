@@ -14,4 +14,12 @@ class GameCollection
   def current
     @list.last
   end
+
+  def to_json(...)
+    @list
+      .map
+      .with_index { |game, index| ["game-#{index}", game.to_h] }
+      .to_h
+      .to_json(...)
+  end
 end
