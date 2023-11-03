@@ -36,7 +36,7 @@ class Game
     {
       total_kills: self.kills.count,
       players: self.players.names,
-      score: self.kills.score,
+      score: self.kills.score.transform_keys(&:name),
       kills_by_means: self.kills.by_means
     }
   end
