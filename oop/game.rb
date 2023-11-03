@@ -1,6 +1,6 @@
 
 require_relative 'player_collection'
-require_relative 'kill'
+require_relative 'kill_collection'
 
 class Game
   attr_accessor :timestamp, :data
@@ -20,13 +20,15 @@ class Game
   end
 
   def kills
-    @_kills ||= []
+    @_kills ||= KillCollection.new
   end
 
   def add_kill(killer, victim, mod)
     killer = self.players.find(killer)
     victim = self.players.find(victim)
 
-    self.kills << Kill.new(killer, victim, mod)
+    self.kills.add(killer, victim, mod)
+  end
+
   end
 end
