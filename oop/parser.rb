@@ -1,10 +1,8 @@
 #! /usr/bin/env ruby
 
-require 'set'
 require 'json'
 
 require_relative 'game_collection'
-require_relative 'kill'
 
 games = GameCollection.new
 
@@ -16,18 +14,14 @@ File.readlines('qgames.log').each do |line|
     games.add(timestamp, data)
 
   in ['ClientUserinfoChanged', data]
-    id, player_info = data.split(' ', 2)
+    id, info = data.split(' ', 2)
 
-    player = games.current.players.find(id)
-    player.update(player_info)
+    player = games.current.update_player(id, info)
 
   in ['Kill', ids, data]
     killer, victim, mod = ids.split(' ')
 
-    killer = games.current.players.find(killer)
-    victim = games.current.players.find(victim)
-
-    games.current.kills << Kill.new(killer, victim, mod)
+    killer = games.current.add_kill(killer, victim, mod)
 
   else
   end
