@@ -27,4 +27,8 @@ class PlayerCollection
   def system_player
     @system_player ||= Player.new('1022', '<world>')
   end
+
+  def names
+    @list.map(&:name).sort
+  end
 end
