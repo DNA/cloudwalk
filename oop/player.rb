@@ -10,7 +10,7 @@ class Player
   end
 
   def self.system_player
-    new(SYSTEM_ID, '<world>')
+    @_system ||= new(SYSTEM_ID, '<world>')
   end
 
   def update(data)
