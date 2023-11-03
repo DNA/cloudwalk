@@ -3,33 +3,31 @@
 require 'set'
 require 'json'
 
-require_relative 'game'
+require_relative 'game_collection'
 require_relative 'kill'
 
-games = []
-current = nil
+games = GameCollection.new
 
 File.readlines('qgames.log').each do |line|
   timestamp, log = line.chomp.strip.split(' ', 2)
 
   case log.split(':')
   in ['InitGame', data]
-    current = Game.new(timestamp, data)
-    games << current
+    games.add(timestamp, data)
 
   in ['ClientUserinfoChanged', data]
     id, player_info = data.split(' ', 2)
 
-    player = current.players.find(id)
+    player = games.current.players.find(id)
     player.update(player_info)
 
   in ['Kill', ids, data]
     killer, victim, mod = ids.split(' ')
 
-    killer = current.players.find(killer)
-    victim = current.players.find(victim)
+    killer = games.current.players.find(killer)
+    victim = games.current.players.find(victim)
 
-    current.kills << Kill.new(killer, victim, mod)
+    games.current.kills << Kill.new(killer, victim, mod)
 
   else
   end
