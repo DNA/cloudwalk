@@ -34,4 +34,13 @@ class KillCollection
       .to_h
       .merge(system_kills) { |player, player_kills, system_kills| player_kills - system_kills }
   end
+
+  def by_means
+    @list
+      .group_by(&:mod)
+      .map{ |k, v| [k.name, v.count] }
+      .sort_by(&:last)
+      .reverse
+      .to_h
+  end
 end
