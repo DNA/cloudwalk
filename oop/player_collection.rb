@@ -25,7 +25,7 @@ class PlayerCollection
   end
 
   def system_player
-    @system_player ||= Player.new('1022', '<world>')
+    Player.system_player
   end
 
   def names
